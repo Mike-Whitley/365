@@ -1,7 +1,7 @@
 <template>
     <dev> Hello
-      <button v-on:click="MovePage">Users page</button>
-
+      <button v-on:click="MovePage">Hello There</button>
+      <button v-on:click="MovePage2">Petitions</button>
     </dev>
 
 </template>
@@ -21,6 +21,10 @@
 
       MovePage: function(){
         this.$router.push('/users').catch((err) => {
+        })
+      },
+      MovePage2: function(){
+        this.$router.push('/petitions').catch((err) => {
         })
       }
 

@@ -7,6 +7,7 @@
       <div id = "user">
         <router-link :to="{ name: 'users'}" > Back to Users </router-link>
 
+
         <br /><br />
         <table>
           <tr>
