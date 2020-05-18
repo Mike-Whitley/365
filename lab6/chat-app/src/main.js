@@ -3,6 +3,8 @@ import App from './App.vue'
 import Home from './Home.vue'
 import Users from './Users.vue'
 import Petitions from './Petitions.vue'
+import Signatures from './Signatures.vue'
+import IndividualPetitions from './IndividualPetitions.vue'
 import axios from 'axios';
 import VueAxios from "vue-axios";
 import VueRouter from 'vue-router';
@@ -29,8 +31,20 @@ const routes = [
   {
     path: "/petitions",
     name:'petitions',
-    component: Petitions
+    component: Petitions,
+    props: true
   },
+  {
+    path: "/individual/:petitionId",
+    name:'individualpetitions',
+    component: IndividualPetitions
+  },
+  {
+    path: "/signatures",
+    name:'signatures',
+    component: Signatures
+  },
+
 ];
 
 const router = new VueRouter({

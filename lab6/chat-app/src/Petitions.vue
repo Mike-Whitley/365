@@ -26,13 +26,15 @@
           <!--------------------card starts here-------https://getbootstrap.com/docs/4.3/components/card/---------------------------->
           <div>
             <div class="card" style="width: 50rem;">
-              <img src="./assets/hello_there.jpg" class="card-img-top">
+              <img :src="getPetitionsPhotos(petition.petitionId)" class="card-img-top">
               <div class="card-body">
                 <h5 class="card-title">{{ petition.title }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ petition.title }}</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+                <h6 class="card-subtitle mb-2 text-muted">Category: {{ petition.category }} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Author: {{petition.authorName}} </h6>
+                <p class="card-text">Number of Signatures: {{petition.signatureCount}}</p>
+                <router-link :to = "{ name: 'individualpetitions', params: { petitionId: petition.petitionId
+              }}" tag="button" class="btn btn-primary">More Information</router-link>
+
+                <a href="/individualpetitions/" class="btn btn-primary">Signatures</a>
               </div>
             </div>
           </div>
@@ -70,8 +72,9 @@
           this.errorFlag = true;
         })
       },
-      getPetitionPicture: function (){
-        this.$http.get('http://localhost:4941/api/v1/petitions')
+      getPetitionsPhotos: function (id) {
+        const x = 'http://localhost:4941/api/v1/petitions/' + id + '/photo'
+        return x
       }
     }
   }
