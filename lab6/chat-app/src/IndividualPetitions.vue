@@ -9,7 +9,7 @@
     <p>city: {{userDetails.city}}</p>
     <p>country {{userDetails.country}}</p>
     <dev>
-      <img style="max-width: 450px; max-height: 300px" :src="getAuthorPhotos(petitions.authorId)" class="card-img-top">
+      <img style="max-width: 450px; max-height: 300px" :src="getAuthorPhotos(petitions.authorId)" class="card-img-top" onerror="this.src='https://cdn.clipart.email/574515d561696205717e2fce5aa2ad23_facebook-default-profile-picture-alternatives-female-similar-_620-389.jpeg'">
     </dev>
 
     <h1>Number of signatures: {{ petitions.signatureCount }}</h1>
@@ -23,7 +23,7 @@
            <td>Name: {{ signature.name }} &nbsp&nbsp</td>
            <td>City: {{ signature.city }} &nbsp&nbsp</td>
            <td>Country: {{ signature.country }} &nbsp&nbsp</td>
-           <img :src="getAuthorPhotos(signature.signatoryId)" class="card-img-top" width="100" height="100" onerror="this.src='https://cdn.clipart.email/574515d561696205717e2fce5aa2ad23_facebook-default-profile-picture-alternatives-female-similar-_620-389.jpeg';" />
+           <img :src="getAuthorPhotos(signature.signatoryId)" class="card-img-top" width="100" height="100" onerror="this.src='https://cdn.clipart.email/574515d561696205717e2fce5aa2ad23_facebook-default-profile-picture-alternatives-female-similar-_620-389.jpeg'" />
            <br/><br/>
 
          </tr>
