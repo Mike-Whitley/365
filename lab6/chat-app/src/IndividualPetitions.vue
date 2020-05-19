@@ -6,7 +6,6 @@
     <h1>Title: {{ petitions.title }}</h1>
     <h1>Description: {{ petitions.description }}</h1>
     <h1>Author: {{ petitions.authorName }}</h1>
-    {{getUserDetails(1)}} <!--------calls the function we need------------->
     <p>city: {{userDetails.city}}</p>
     <p>country {{userDetails.country}}</p>
     <dev>
@@ -24,10 +23,11 @@
            <td>Name: {{ signature.name }} &nbsp&nbsp</td>
            <td>City: {{ signature.city }} &nbsp&nbsp</td>
            <td>Country: {{ signature.country }} &nbsp&nbsp</td>
-           <img :src="getAuthorPhotos(signature.signatoryId)"/>
+           <img :src="getAuthorPhotos(signature.signatoryId)" class="card-img-top" width="100" height="100" onerror="this.src='https://cdn.clipart.email/574515d561696205717e2fce5aa2ad23_facebook-default-profile-picture-alternatives-female-similar-_620-389.jpeg';" />
            <br/><br/>
+
          </tr>
-        <!-------- <img src="./assets/default.png" /> --->
+        <!-------- <img src="./assets/default.png" />    --->
        </table>
      </div>
 
@@ -45,6 +45,7 @@
         petitions: [],
         userDetails : [],
         signatures: [],
+        imageUrl: ""
 
       }
     },
@@ -62,7 +63,6 @@
         this.$http.get('http://localhost:4941/api/v1/petitions/' + this.petitionId)
           .then((response) => {
             this.petitions = response.data;
-            console.log()
           })
           .catch((error) => {
             this.error = error;
@@ -75,13 +75,14 @@
       },
       getAuthorPhotos: function (id) {
         const x = 'http://localhost:4941/api/v1/users/' + id + '/photo'
+        this.imageUrl = x
         return x
+        // console.log(x)
       },
       getUserDetails: function (userid) {
         this.$http.get('http://localhost:4941/api/v1/users/' + userid)
           .then((response) => {
             this.userDetails = response.data;
-            console.log()
           })
           .catch((error) => {
             this.error = error;
@@ -99,7 +100,11 @@
             this.errorFlag = true;
 
           });
-      }
+      },
+
+      imageLoadError () {
+        this.imageUrl = "./assets/default.png"
+      },
 
 
 
