@@ -3,7 +3,6 @@
     <div v-if="errorFlag" style="color: red;">
       {{ error }}
     </div>
-    <h5> GENERAL KENOBE </h5>
 <!------------- example of card
     <div>
       <div class="card" style="width: 18rem;">
@@ -18,6 +17,23 @@
       </div>
     </div>
 -----------card example --->
+    <!-- start of navigation bar -->
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="btn btn-primary" href="/Petitions">Home</a>
+        </li>
+        <li>
+          <a class="btn btn-primary"  href="/">Login</a>
+        </li>
+        <li>
+          <a class="btn btn-primary"  href="/register">Register</a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!------------------End of navigation bar----------------------->
     <div id="petitions">
       <table>
         <div class="card-deck"> <!---------this isngle line groups cards ------->

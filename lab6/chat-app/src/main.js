@@ -3,6 +3,7 @@ import App from './App.vue'
 import Home from './Home.vue'
 import Users from './Users.vue'
 import Petitions from './Petitions.vue'
+import Register from './Register.vue'
 import Signatures from './Signatures.vue'
 import IndividualPetitions from './IndividualPetitions.vue'
 import axios from 'axios';
@@ -10,6 +11,10 @@ import VueAxios from "vue-axios";
 import VueRouter from 'vue-router';
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+// global variable
+Vue.prototype.$loginstatus = true       //this is a g
+
 Vue.use(VueAxios, axios)
 Vue.use(VueRouter);
 
@@ -43,6 +48,11 @@ const routes = [
     path: "/signatures",
     name:'signatures',
     component: Signatures
+  },
+  {
+    path: "/register",
+    name:'Register',
+    component: Register
   },
 
 ];

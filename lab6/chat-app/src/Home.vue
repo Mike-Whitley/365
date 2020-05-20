@@ -2,6 +2,7 @@
     <dev> Hello
       <button v-on:click="MovePage">Hello There</button>
       <button v-on:click="MovePage2">Petitions</button>
+      <p>  {{this.$loginstatus}} </p> <!---------this is an example of the global variable login status c an be called anywehre defined in main------->
     </dev>
 
 </template>
