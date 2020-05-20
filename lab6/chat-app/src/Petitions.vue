@@ -3,6 +3,9 @@
     <div v-if="errorFlag" style="color: red;">
       {{ error }}
     </div>
+    <NavBar v-bind:loggedIn="LoggedIn">
+
+    </NavBar>
 <!------------- example of card
     <div>
       <div class="card" style="width: 18rem;">
@@ -18,16 +21,20 @@
     </div>
 -----------card example --->
     <!-- start of navigation bar -->
-    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark" >
       <ul class="navbar-nav">
         <li class="nav-item active">
           <a class="btn btn-primary" href="/Petitions">Home</a>
         </li>
         <li>
-          <a class="btn btn-primary"  href="/">Login</a>
+          <a class="btn btn-primary"  href="/login">Login</a>
         </li>
         <li>
-          <a class="btn btn-primary"  href="/register">Register</a>
+          <a class="btn btn-primary"  href="/register" id="regbuttonid">Register</a>
+        </li>
+
+        <li>
+          <a class="btn btn-primary" id="logoutbutton" v-on:click="logout()">logout</a>
         </li>
 
       </ul>
@@ -71,14 +78,23 @@
       return{
         error: "",
         errorFlag: false,
-        petitions: []
+        petitions: [],
+        LoggedIn: null
       }
     },
     mounted: function () {
+      console.log("value in petitions for local storage is = ",localStorage.getItem('token'))
+      // this.loggedIn = localStorage.getItem("token") != null;
+      this.loggedIn = localStorage.getItem("token")
+      if(this.loggedIn !== null){
+       document.getElementById('regbuttonid').hidden = true
+      }
       this.getPetitions();
     },
     methods: {
       getPetitions: function () {
+        console.log("this.loggedIn", this.loggedIn)
+        console.log("logged in is at:", this.loggedIn)
         this.$http.get('http://localhost:4941/api/v1/petitions')
         .then((response) => {
           this.petitions = response.data;
@@ -88,10 +104,24 @@
           this.errorFlag = true;
         })
       },
+
+      logout: function(){
+        localStorage.removeItem("token")
+        window.location.reload()
+      },
+
       getPetitionsPhotos: function (id) {
         const x = 'http://localhost:4941/api/v1/petitions/' + id + '/photo'
         return x
       }
-    }
-  }
+    },
+
+
+
+    props: ['loggedin']
+
+
+
+  };
+
 </script>

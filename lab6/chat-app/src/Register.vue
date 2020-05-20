@@ -94,6 +94,7 @@
         addcountry: "",
         addcity: "",
         selectedFile: null,
+        id: 30,
         sqlreg: {
           name: "",
           email: "",
@@ -152,8 +153,20 @@
         this.$http.post(SERVER_URL+ 'users/register', this.sqlreg)
           .then((response) => {
             console.log("response = " + JSON.stringify(response.data) )
-            this.$router.push('/petitions')
+            return this.$http.post(SERVER_URL+ 'users/login', {
+              email: this.sqlreg.email, password: this.sqlreg.password
+            })
 
+          })
+          .then(response => {
+            localStorage.setItem('token',response.data.token)
+            localStorage.setItem('userId',response.data.userId)
+            if(this.selectedFile != null) {                                              //register user image here
+              this.update_photo()
+            }
+            console.log("value = ",localStorage.getItem('token'))
+
+            this.$router.push('/petitions')
           })
           .catch((error) => {
             this.error = "invalid Email: already in use or missing domain name"
@@ -165,9 +178,18 @@
 
       update_photo: function(){
         ///users/:id/photo
+        this.$http.put(SERVER_URL+ '/users/'+ this.id + '/photo', {},{headers: {
+          'X-Authorization': localStorage.getItem('token')}
+        })
 
 
       },
+
+      loginuser: function(){
+
+      }
+
+
 
 
 

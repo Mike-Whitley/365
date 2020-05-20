@@ -5,6 +5,7 @@ import Users from './Users.vue'
 import Petitions from './Petitions.vue'
 import Register from './Register.vue'
 import Signatures from './Signatures.vue'
+import Login from './Login.vue'
 import IndividualPetitions from './IndividualPetitions.vue'
 import axios from 'axios';
 import VueAxios from "vue-axios";
@@ -54,6 +55,11 @@ const routes = [
     path: "/register",
     name:'Register',
     component: Register
+  },
+  {
+    path: "/login",
+    name:'login',
+    component: Login
   },
 
 ];
