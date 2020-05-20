@@ -1,27 +1,50 @@
 <template>
+
+
+
+
   <dev>
+    <dev>
+      <h5>Required</h5>
+      <input v-model="sqlreg.name" placeholder="Name">
+      <!----- <p>Username is: {{ usernameadd }}</p>--------->
+      <input v-model="sqlreg.password" placeholder="Password" :type="'password'">
+      <input v-model="sqlreg.email" placeholder="Email" >
+      <br/><br/>
+      <p>Optional details</p>
+      <input v-model="sqlreg.city" placeholder="City">
+      <input v-model="sqlreg.country" placeholder="Country">
+      <br/><br/>
+      <p>User Photo</p>
+      <input type='file' @change='onFileSelected'>
+      <button type="button" class="btn btn-primary" v-on:click.prevent="createSQL()">
+        Register</button>
+      <label id="usernameErrorLabel" style="color:red" hidden="true" ref="nameErrorLabel">{{error}}</label>
 
+    </dev>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddUserModal">Register Account</button> <!-- new line for edit user-->
+  <!-----------
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddUserModal">Register Account</button> --->
 
     <!------------register user end goes below button------------------>
-    <div class="modal fade" id="AddUserModal" tabindex="-1" role="dialog" aria-labelledby="AddUserModal" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="AddUserModalLabel">Add User</h5>
+    <!-----------
+  <div class="modal fade" id="AddUserModal" tabindex="-1" role="dialog" aria-labelledby="AddUserModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="AddUserModalLabel">Add User</h5>
 
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
 
-          </div>
+        </div>
 
-          <div class="modal-body">
-            <div class = "modal-body">
-              <h5>Required</h5>
-              <input v-model="sqlreg.name" placeholder="Name">
-             <!----- <p>Username is: {{ usernameadd }}</p>--------->
+        <div class="modal-body">
+          <div class = "modal-body">
+            <h5>Required</h5>
+            <input v-model="sqlreg.name" placeholder="Name">
+
               <input v-model="sqlreg.password" placeholder="Password" :type="'password'">
               <input v-model="sqlreg.email" placeholder="Email" >
               <br/><br/>
@@ -48,6 +71,7 @@
       </div>
 
     </div>
+    ----------->
 <!------------register user end------------------>
 
   </dev>
@@ -94,48 +118,46 @@
 
 
       createSQL: function(){
+
+        let error = document.getElementById("usernameErrorLabel")
+
         if (this.sqlreg.password == ""){
-          this.newerrorFlag = true
           this.error = "password field must not be empty"
+          console.log("error in password blank")
+          error.hidden = false
           return
         }
-        if (!this.sqlreg.email.includes("@") == false){
-          this.newerrorFlag = true
+        if (this.sqlreg.email.includes("@") == false){
           this.error = "Invalid email it must contain @ symbol"
+          console.log("error in email @")
+          error.hidden = false
           return
         }
         if (this.sqlreg.city == ""){
           delete this.sqlreg['city']
         }
+
         if (this.sqlreg.country == ""){
           delete this.sqlreg['country']
         }
-        if (this.newerrorFlag == false){
+        if (this.newerrorFlag == false) {
           this.RegisterUser()
+          console.log("success")
           //data-dismiss
-
-        }else{
-          let error = document.getElementById("usernameErrorLabel")
-          error.hidden = false
-          error.innerText = "you  fucked up"
-
         }
 
       },
-
 
       RegisterUser: function(){
         this.$http.post(SERVER_URL+ 'users/register', this.sqlreg)
           .then((response) => {
             console.log("response = " + JSON.stringify(response.data) )
+            this.$router.push('/petitions')
+
           })
           .catch((error) => {
-            this.error = error;
-            this.errorFlag = true;
-            console.log("error code= ", this.error)
-            if(this.error == "Error: Request failed with status code 400"){
-
-            }
+            this.error = "invalid Email: already in use or missing domain name"
+            error.hidden = false
 
           });
 
@@ -145,7 +167,7 @@
         ///users/:id/photo
 
 
-      }
+      },
 
 
 

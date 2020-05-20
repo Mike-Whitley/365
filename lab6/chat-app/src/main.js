@@ -13,7 +13,8 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 // global variable
-Vue.prototype.$loginstatus = true       //this is a g
+Vue.prototype.$loginstatus = false       //this is a global variable
+
 
 Vue.use(VueAxios, axios)
 Vue.use(VueRouter);
