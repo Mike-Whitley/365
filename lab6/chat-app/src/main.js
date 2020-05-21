@@ -4,6 +4,7 @@ import Home from './Home.vue'
 import Users from './Users.vue'
 import Petitions from './Petitions.vue'
 import Register from './Register.vue'
+import CreatePetition from './CreatePetition.vue'
 import Signatures from './Signatures.vue'
 import Login from './Login.vue'
 import IndividualPetitions from './IndividualPetitions.vue'
@@ -60,6 +61,11 @@ const routes = [
     path: "/login",
     name:'login',
     component: Login
+  },
+  {
+    path: "/createpetition",
+    name:'createpetition',
+    component: CreatePetition
   },
 
 ];

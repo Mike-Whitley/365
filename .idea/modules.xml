@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/365.iml" filepath="$PROJECT_DIR$/.idea/365.iml" />
+      <module fileurl="file://$USER_HOME$/WebstormProjects/assign server/.idea/assign server.iml" filepath="$USER_HOME$/WebstormProjects/assign server/.idea/assign server.iml" />
       <module fileurl="file://$USER_HOME$/WebstormProjects/assignment2/.idea/assignment2.iml" filepath="$USER_HOME$/WebstormProjects/assignment2/.idea/assignment2.iml" />
-      <module fileurl="file://$USER_HOME$/WebstormProjects/assignment2-server/.idea/assignment2-server.iml" filepath="$USER_HOME$/WebstormProjects/assignment2-server/.idea/assignment2-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/../bens/.idea/lab3.iml" filepath="$PROJECT_DIR$/../bens/.idea/lab3.iml" />
     </modules>
   </component>

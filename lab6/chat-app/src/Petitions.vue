@@ -3,9 +3,6 @@
     <div v-if="errorFlag" style="color: red;">
       {{ error }}
     </div>
-    <NavBar v-bind:loggedIn="LoggedIn">
-
-    </NavBar>
 <!------------- example of card
     <div>
       <div class="card" style="width: 18rem;">
@@ -26,15 +23,21 @@
         <li class="nav-item active">
           <a class="btn btn-primary" href="/Petitions">Home</a>
         </li>
+
         <li>
-          <a class="btn btn-primary"  href="/login">Login</a>
+          <a class="btn btn-primary"  href="/login" id="loginidbutton">Login</a>
         </li>
+
         <li>
           <a class="btn btn-primary"  href="/register" id="regbuttonid">Register</a>
         </li>
 
         <li>
-          <a class="btn btn-primary" id="logoutbutton" v-on:click="logout()">logout</a>
+          <a class="btn btn-primary" v-on:click="logout()" id="logoutbuttonid">logout</a>
+        </li>
+
+        <li>
+          <a class="btn btn-primary"  href="/createpetition" id="createpetitionid">Create Petition</a>
         </li>
 
       </ul>
@@ -87,9 +90,19 @@
       // this.loggedIn = localStorage.getItem("token") != null;
       this.loggedIn = localStorage.getItem("token")
       if(this.loggedIn !== null){
-       document.getElementById('regbuttonid').hidden = true
+       document.getElementById('loginidbutton').hidden = true
+        document.getElementById('regbuttonid').hidden = true
+      }
+      console.log("hhh", this.loggedIn)
+      if(this.loggedIn == null){
+        console.log("gdsgfdsgdsgds")
+        document.getElementById('logoutbuttonid').hidden = true
+        document.getElementById('createpetitionid').hidden = true
       }
       this.getPetitions();
+
+
+      //logoutbuttonid
     },
     methods: {
       getPetitions: function () {

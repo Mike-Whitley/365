@@ -211,7 +211,6 @@
       UpdateUsername: function (user_id) {
         this.$http.put('http://localhost:3000/api/users/' + user_id, {'username': this.username, 'userId': user_id})
           .then((response) => {
-            console.log("Hot here")
 
             for (var i = 0; i < this.users.length; i++) {
               if (user_id == this.users[i].user_id) {  //this loop updates user details
@@ -233,8 +232,6 @@
         this.$http.post('http://localhost:3000/api/users/', {'username': this.usernameadd})
           .then((response) => {
             this.getUsers() //I call this so I update the user list so when we pull the page again its updated
-
-
             this.$router.push('/users').catch((err) => { //this bring us back to users
             });
 

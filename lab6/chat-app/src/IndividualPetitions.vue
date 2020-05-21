@@ -6,9 +6,9 @@
         <li class="nav-item active">
           <a class="btn btn-primary" href="/petitions">Home</a>
         </li>
-          <a class="btn btn-primary" href="/login">Login</a>
+          <a class="btn btn-primary" href="/login" id="loginidbutton">Login</a>
         <li>
-          <a class="btn btn-primary"  href="/register">Register</a>
+          <a class="btn btn-primary"  href="/register" id="regbuttonid">Register</a>
         </li>
 
       </ul>
@@ -72,6 +72,12 @@
       this.getPetition();
       this.getPetitionsPhotos(this.petitionId);
       this.getSignatures(this.petitionId);
+
+      this.loggedIn = localStorage.getItem("token")
+      if(this.loggedIn !== null){
+        document.getElementById('regbuttonid').hidden = true
+        document.getElementById('loginidbutton').hidden = true
+      }
     },
 
     methods: {
