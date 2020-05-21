@@ -52,7 +52,7 @@
 
       check: function (){
 
-        if (this.email == "" || this.password == "") {
+        if (this.email == "" || this.password == "" || localStorage.getItem('token') == null) {
           this.error = "please enter a valid username and password"
           return true
         }else{
