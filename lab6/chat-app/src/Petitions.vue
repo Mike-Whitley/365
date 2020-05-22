@@ -36,8 +36,13 @@
           <a class="btn btn-primary" v-on:click="logout()" id="logoutbuttonid">logout</a>
         </li>
 
+
         <li>
           <a class="btn btn-primary"  href="/createpetition" id="createpetitionid">Create Petition</a>
+        </li>
+
+        <li>
+          <a class="btn btn-primary"  href="/viewprofile" id="viewprofileid">View Profile</a>
         </li>
 
       </ul>
@@ -97,6 +102,7 @@
         console.log("gdsgfdsgdsgds")
         document.getElementById('logoutbuttonid').hidden = true
         document.getElementById('createpetitionid').hidden = true
+        document.getElementById('viewprofileid').hidden = true
       }
       this.getPetitions();
 

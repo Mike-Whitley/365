@@ -6,9 +6,14 @@
         <li class="nav-item active">
           <a class="btn btn-primary" href="/petitions">Home</a>
         </li>
+        <li>
           <a class="btn btn-primary" href="/login" id="loginidbutton">Login</a>
+        </li>
         <li>
           <a class="btn btn-primary"  href="/register" id="regbuttonid">Register</a>
+        </li>
+        <li>
+          <a class="btn btn-primary"  href="/createpetition" id="createpetitionid">Create Petition</a>
         </li>
 
       </ul>
@@ -20,7 +25,7 @@
     </dev>
     <h1>Title: {{ petitions.title }}</h1>
 
-    <button type="button" class="btn btn-primary" v-on:click="Sign_the_petition()">
+    <button type="button" class="btn btn-primary" v-if="canIsign()" v-on:click="Sign_the_petition()">
       Sign Petition</button>
 
     <h1>Description: {{ petitions.description }}</h1>
@@ -34,8 +39,8 @@
     <h1>Number of signatures: {{ petitions.signatureCount }}</h1>
     <h1>category: {{ petitions.category }}</h1>
     {{getUserDetails(petitions.authorId)}}
-    <h1>createdDate: {{ petitions.createdDate }}</h1>
-    <h1>closingDate {{ petitions.closingDate }}</h1>
+    <h1>Created Date: {{ petitions.createdDate }} </h1>
+    <h1>Closing Date: {{ petitions.closingDate }}</h1>
     <h1>People who signed this petition</h1>
      <div id = "signatures">
        <table>
@@ -67,6 +72,9 @@
         signatures: [],
         imageUrl: "",
         petid: "",
+        createdd: "",
+        endeddate: "",
+
 
       }
     },
@@ -83,10 +91,18 @@
       if(this.loggedIn !== null){
         document.getElementById('regbuttonid').hidden = true
         document.getElementById('loginidbutton').hidden = true
+        document.getElementById('signpetitionid').hidden = true
       }
     },
 
     methods: {
+
+      createstartdate: function (sd){
+        const answer =  sd.toISOString().split('T')[0]
+        return answer
+      },
+
+
       getPetition: function () {
         this.$http.get('http://localhost:4941/api/v1/petitions/' + this.petitionId)
           .then((response) => {
@@ -143,6 +159,20 @@
         this.getSignatures()
         window.location.reload()
       },
+      canIsign: function(){
+        if(this.loggedIn == null){
+          return false
+        }else{
+          const uid = localStorage.getItem('userId')
+          console.log(this.petitions.closingDate)
+          console.log(this.signatures)
+          console.log("uid0",uid)
+          const now = Date.now();
+          console.log("today",now)
+          console.log("the date givenn", this.petitions.closingDate)
+          return true
+        }
+      }
 
 
 

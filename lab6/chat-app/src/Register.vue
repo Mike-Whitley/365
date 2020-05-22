@@ -4,6 +4,25 @@
 
 
   <dev>
+
+    <dev>
+      <!-- start of navigation bar -->
+      <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="btn btn-primary" href="/petitions">Home</a>
+          </li>
+          <li>
+            <a class="btn btn-primary" href="/login" id="loginidbutton">Login</a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <!------------------End of navigation bar----------------------->
+      </dev>
+
+
     <dev>
       <h5>Required</h5>
       <input v-model="sqlreg.name" placeholder="Name">
@@ -22,6 +41,7 @@
       <label id="usernameErrorLabel" style="color:red" hidden="true" ref="nameErrorLabel">{{error}}</label>
 
     </dev>
+  </dev>
 
   <!-----------
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddUserModal">Register Account</button> --->

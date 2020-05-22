@@ -13,6 +13,7 @@ import VueAxios from "vue-axios";
 import VueRouter from 'vue-router';
 import {BootstrapVue} from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Viewprofile from "./Viewprofile";
 
 // global variable
 Vue.prototype.$loginstatus = false       //this is a global variable
@@ -67,6 +68,11 @@ const routes = [
     path: "/createpetition",
     name:'createpetition',
     component: CreatePetition
+  },
+  {
+    path: "/viewprofile",
+    name:'viewprofile',
+    component: Viewprofile
   },
 
 ];

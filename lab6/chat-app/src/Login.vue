@@ -1,6 +1,24 @@
 
 <template>
+
+
+
   <dev>
+    <dev>
+      <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="btn btn-primary" href="/petitions">Home</a>
+          </li>
+          <li>
+            <a class="btn btn-primary"  href="/register" id="regbuttonid">Register</a>
+          </li>
+
+        </ul>
+      </nav>
+    </dev>
+
+
     <h5>Required</h5>
     <input v-model="email" placeholder="Email" >
     <input v-model="password" placeholder="Password" :type="'password'">
