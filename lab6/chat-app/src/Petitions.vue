@@ -60,7 +60,6 @@
                 <router-link :to = "{ name: 'individualpetitions', params: { petitionId: petition.petitionId
               }}" tag="button" class="btn btn-primary">More Information</router-link>
 
-                <a href="/individualpetitions/" class="btn btn-primary">Signatures</a>
               </div>
             </div>
           </div>
@@ -128,6 +127,9 @@
         return x
       }
     },
+
+
+
 
 
 

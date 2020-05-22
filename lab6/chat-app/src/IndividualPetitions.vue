@@ -19,6 +19,10 @@
       <img style="max-width: 450px; max-height: 300px" :src="getPetitionsPhotos(petitions.authorId)" class="card-img-top">
     </dev>
     <h1>Title: {{ petitions.title }}</h1>
+
+    <button type="button" class="btn btn-primary" v-on:click="Sign_the_petition()">
+      Sign Petition</button>
+
     <h1>Description: {{ petitions.description }}</h1>
     <h1>Author: {{ petitions.authorName }}</h1>
     <p>city: {{userDetails.city}}</p>
@@ -61,7 +65,8 @@
         petitions: [],
         userDetails : [],
         signatures: [],
-        imageUrl: ""
+        imageUrl: "",
+        petid: "",
 
       }
     },
@@ -72,6 +77,7 @@
       this.getPetition();
       this.getPetitionsPhotos(this.petitionId);
       this.getSignatures(this.petitionId);
+      this.petid = this.petitionId;
 
       this.loggedIn = localStorage.getItem("token")
       if(this.loggedIn !== null){
@@ -124,6 +130,18 @@
           });
 
 
+      },
+
+      Sign_the_petition: function(){
+        const token = localStorage.getItem('token')
+        // console.log("signing petition with pitid", this.petitionId)
+        // console.log("signing petition with token", token)
+        // console.log('this.petition_id',this.petitionId)
+        this.$http.post('http://localhost:4941/api/v1/petitions/'+ this.petitionId +'/signatures', "",{headers: {
+            'X-Authorization': token}
+        })
+        this.getSignatures()
+        window.location.reload()
       },
 
 

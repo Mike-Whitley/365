@@ -16,7 +16,7 @@
       <input v-model="sqlreg.country" placeholder="Country">
       <br/><br/>
       <p>User Photo</p>
-      <input type='file' @change='onFileSelected'>
+      <b-form-file accept=".jpg, .png, .gif, .jpg" v-model="file"></b-form-file>
       <button type="button" class="btn btn-primary" v-on:click.prevent="createSQL()">
         Register</button>
       <label id="usernameErrorLabel" style="color:red" hidden="true" ref="nameErrorLabel">{{error}}</label>
@@ -93,7 +93,7 @@
         passwordadd: "",
         addcountry: "",
         addcity: "",
-        selectedFile: null,
+        file: null,
         id: 30,
         sqlreg: {
           name: "",
@@ -161,8 +161,9 @@
           .then(response => {
             localStorage.setItem('token',response.data.token)
             localStorage.setItem('userId',response.data.userId)
-            if(this.selectedFile != null) {                                              //register user image here
-              this.update_photo()
+            if(this.file != null){
+              console.log("file is not null")
+              this.setImage()
             }
             console.log("value = ",localStorage.getItem('token'))
 
@@ -176,45 +177,26 @@
 
       },
 
-      update_photo: function(){
-        ///users/:id/photo
-        this.$http.put(SERVER_URL+ '/users/'+ this.id + '/photo', {},{headers: {
-          'X-Authorization': localStorage.getItem('token')}
+
+      setImage: function (){
+        ///petitions/:id/photo'
+        const locid = localStorage.getItem('userId')
+        const token = localStorage.getItem('token')  ///petitions/:id/photo
+        console.log()
+        console.log('thisis a test url = ' + 'http://localhost:4941/api/v1/users/' + locid + '/photo')
+        console.log("the selected file is", this.file)
+        this.axios.defaults.headers.common['X-Authorization'] = localStorage.getItem('token')
+        this.axios.put('http://localhost:4941/api/v1/users/' + locid + '/photo',this.file, {headers: {
+            "Content-Type": this.file.type}
+        }) . catch(function (error) {
+          alert(error);
+
         })
-
-
       },
 
-      loginuser: function(){
-
-      }
 
 
 
-
-
-      //
-      // Adduser: function (user_id) {
-      //   this.$http.post('http://localhost:3000/api/users/', {'username': this.usernameadd})
-      //     .then((response) => {
-      //       this.getUsers() //I call this so I update the user list so when we pull the page again its updated
-      //
-      //
-      //       this.$router.push('/users').catch((err) => { //this bring us back to users
-      //       });
-      //
-      //     })
-      //     .catch((error) => {
-      //       this.error = error;
-      //       this.errorFlag = true;
-      //       console.log("error in AddUser prob requested to many users be added")
-      //     });
-      //
-      // }
-
-
-      // UpdateUsername: function (user_id) {
-      //   this.$http.put('http://localhost:3000/api/users/' + user_id, {'username': this.username, 'userId': user_id})
 
 
 

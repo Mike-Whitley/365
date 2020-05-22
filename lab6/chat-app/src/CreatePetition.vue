@@ -125,8 +125,8 @@
               this.setImage()
             }
             console.log(this.selectedValue)
-            // this.$router.push('/petitions')
-            //window.location.reload()
+            this.$router.push('/petitions')
+            window.location.reload()
           })
           .catch((error) => {
             this.error = error;
