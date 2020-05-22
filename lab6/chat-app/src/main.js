@@ -11,7 +11,7 @@ import IndividualPetitions from './IndividualPetitions.vue'
 import axios from 'axios';
 import VueAxios from "vue-axios";
 import VueRouter from 'vue-router';
-import 'bootstrap'
+import {BootstrapVue} from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 // global variable
@@ -20,6 +20,7 @@ Vue.prototype.$loginstatus = false       //this is a global variable
 
 Vue.use(VueAxios, axios)
 Vue.use(VueRouter);
+Vue.use(BootstrapVue)
 
 const routes = [
   {

@@ -11,5 +11,6 @@
     <orderEntry type="module" module-name="lab3" />
     <orderEntry type="module" module-name="assignment2" />
     <orderEntry type="module" module-name="assign server" />
+    <orderEntry type="module" module-name="reference_server" />
   </component>
 </module>

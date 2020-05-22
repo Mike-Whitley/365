@@ -24,7 +24,8 @@
       <!------------------date end----------------->
       <input v-model="givendescription" placeholder="Description">
       <p>User Photo</p>
-      <input type='file' @change='onFileSelected'>
+        <!----------- <input v-model="file">  @change='onFileSelected'------>
+      <b-form-file accept=".jpg, .png, .gif, .jpg" v-model="file"></b-form-file>
       <button type="button" class="btn btn-primary" v-on:click.prevent="Create_petition()">
         Create Petition</button>
       <label id="usernameErrorLabel" style="color:red" hidden="true" ref="nameErrorLabel">{{error}}</label>
@@ -57,6 +58,7 @@
         currentdate: null,
         DatePickerFormat: 'dd/MM/yyyy',
         date: "",
+        file: null,
         newdate: "",
         disabledDates:{
           to: new Date()
@@ -117,9 +119,14 @@
           .then((response) => {
             this.petition_id = response.data;
             this.SignPetition()
+            console.log("Iam here")
+            if(this.file != null){
+              console.log("file is not null")
+              this.setImage()
+            }
             console.log(this.selectedValue)
-            this.$router.push('/petitions')
-            window.location.reload()
+            // this.$router.push('/petitions')
+            //window.location.reload()
           })
           .catch((error) => {
             this.error = error;
@@ -136,6 +143,20 @@
         console.log('this.petition_id',this.petition_id.petitionId)
         this.$http.post('http://localhost:4941/api/v1/petitions/'+this.petition_id.petitionId +'/signatures', "",{headers: {
             'X-Authorization': token}
+        })
+      },
+
+      setImage: function (){
+        ///petitions/:id/photo'
+        const token = localStorage.getItem('token')  ///petitions/:id/photo
+        console.log('http://localhost:4941/api/v1/petitions/' + this.petition_id.petitionId + '/photo')
+        console.log("the selected file is", this.file)
+        this.axios.defaults.headers.common['X-Authorization'] = localStorage.getItem('token')
+        this.axios.put('http://localhost:4941/api/v1/petitions/' + this.petition_id.petitionId + '/photo',this.file, {headers: {
+          "Content-Type": this.file.type}
+        }) . catch(function (error) {
+          alert(error);
+
         })
       }
 
