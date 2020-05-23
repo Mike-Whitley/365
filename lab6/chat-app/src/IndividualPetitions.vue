@@ -15,18 +15,18 @@
         <li>
           <a class="btn btn-primary"  href="/createpetition" id="createpetitionid">Create Petition</a>
         </li>
-
       </ul>
     </nav>
 
     <!------------------End of navigation bar----------------------->
     <dev>
-      <img style="max-width: 450px; max-height: 300px" :src="getPetitionsPhotos(petitions.authorId)" class="card-img-top">
+      <img style="max-width: 450px; max-height: 300px" :src="getPetitionsPhotos(petitions.petitionId)" class="card-img-top">
     </dev>
     <h1>Title: {{ petitions.title }}</h1>
-
-    <button type="button" class="btn btn-primary" v-if="canIsign()" v-on:click="Sign_the_petition()">
+    <div v-show="canIsign(petitions.closingDate)">
+    <button id="signpetitionbutton" type="button" class="btn btn-primary"  v-on:click="Sign_the_petition()">     <!-----v-if="canIsign()"---->
       Sign Petition</button>
+    </div>
 
     <h1>Description: {{ petitions.description }}</h1>
     <h1>Author: {{ petitions.authorName }}</h1>
@@ -35,10 +35,9 @@
     <dev>
       <img style="max-width: 450px; max-height: 300px" :src="getAuthorPhotos(petitions.authorId)" class="card-img-top" onerror="this.src='https://cdn.clipart.email/574515d561696205717e2fce5aa2ad23_facebook-default-profile-picture-alternatives-female-similar-_620-389.jpeg'">
     </dev>
-
+    <p>{{ getUserDetails(petitions.authorId) }}</p>
     <h1>Number of signatures: {{ petitions.signatureCount }}</h1>
     <h1>category: {{ petitions.category }}</h1>
-    {{getUserDetails(petitions.authorId)}}
     <h1>Created Date: {{ petitions.createdDate }} </h1>
     <h1>Closing Date: {{ petitions.closingDate }}</h1>
     <h1>People who signed this petition</h1>
@@ -74,6 +73,7 @@
         petid: "",
         createdd: "",
         endeddate: "",
+        truthcheck: false,
 
 
       }
@@ -82,11 +82,8 @@
       this.petitionId = this.$route.params.petitionId;  //this retrieves the variables I passed through in the url or in this case the petition id
     },
     mounted: function() {
-      this.getPetition();
-      this.getPetitionsPhotos(this.petitionId);
-      this.getSignatures(this.petitionId);
+      this.loadNeeded()
       this.petid = this.petitionId;
-
       this.loggedIn = localStorage.getItem("token")
       if(this.loggedIn !== null){
         document.getElementById('regbuttonid').hidden = true
@@ -97,16 +94,22 @@
 
     methods: {
 
-      createstartdate: function (sd){
-        const answer =  sd.toISOString().split('T')[0]
-        return answer
+      loadNeeded: function(){
+        this.getPetition();
+        this.getPetitionsPhotos(this.petitionId);
+        this.getSignatures(this.petitionId);
+        console.log("insdie loaded pettion is", this.petitions)
+        this.getUserDetails()
+        this.canIsign()
+
       },
 
-
       getPetition: function () {
+        console.log("i am now being called")
         this.$http.get('http://localhost:4941/api/v1/petitions/' + this.petitionId)
           .then((response) => {
             this.petitions = response.data;
+            console.log("this.petitions is now inside the get petition functiion: ", this.petitions)
           })
           .catch((error) => {
             this.error = error;
@@ -159,24 +162,33 @@
         this.getSignatures()
         window.location.reload()
       },
-      canIsign: function(){
+
+      canIsign: function(date){
+        const currentdate = Date.now();
+        let closingdate = new Date(date)
+        const locid = localStorage.getItem('userId')
+
+        for (var i = 0; i < this.signatures.length; i++) {
+          if(this.signatures[i].signatoryId == locid){
+            this.truthcheck = true
+          }
+        }
+
         if(this.loggedIn == null){
           return false
+        }else if(this.truthcheck) {
+          return false
         }else{
-          const uid = localStorage.getItem('userId')
-          console.log(this.petitions.closingDate)
-          console.log(this.signatures)
-          console.log("uid0",uid)
-          const now = Date.now();
-          console.log("today",now)
-          console.log("the date givenn", this.petitions.closingDate)
-          return true
+            if(closingdate < currentdate){
+              return false
+            }else {
+              const uid = localStorage.getItem('userId')
+              return true
+            }
+
         }
-      }
+      },
 
-
-
-//'http://localhost:4941/api/v1/petitions/' + id + '/signatures'
 
 
 
